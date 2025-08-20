@@ -1,0 +1,20 @@
+  865  cd ..
+  866  cd -
+  894  sudo -i
+  902  touch dog.txt && echo "зелёный слоник" > dog.txt
+  924  vim dog.txt
+  925  cat dog.txt
+  926  mv dog.txt cat.txt
+  927  mkdir animals
+  930  cd ./animals
+  932  mv ../cat.txt .
+  933  cat ./cat.txt
+  934  sudo -i
+  944  ls -l | grep "cat.txt"
+  945  find . -name "cat.txt"
+  946  rm bobr.txt
+  950  rm -rf ~/animals
+  951  cd ~
+  952  ls -l
+  953  cd ./animals
+  954  history | grep "cd"
