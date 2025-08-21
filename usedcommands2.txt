@@ -1,0 +1,46 @@
+sudo useradd -m -d /home/Raymond -g users -s /bin/bash Raymond
+sudo useradd -m -d /home/John -g users -s /bin/bash John
+sudo passwd John
+cd /etc/ssh
+sudo vim sshd_config
+sudo systemctl restart ssh
+#представим, что мы не знаем, есть ли у них уже ключи, и хотим убедиться в обратном
+sudo rm -f /home/John/.ssh/authorized_keys
+sudo rm -f /home/Raymond/.ssh/authorized_keys
+#выяснилось, что у реймонда нет директории .ssh
+sudo mkdir -p /home/Raymond/.ssh
+ip a
+ssh-keygen
+#ssh-copy-id чето ругался, поэтому скопировал вручную
+echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBlBzhR3RwlPL6pONphdJ2Ufvu7AKHeBzMcPIFdq2leb vboxuser@ubuntu" | sudo tee -a /home/Raymond/.ssh/authorized_keys
+#я не совсем понял, нам надо, чтобы джон мог только подключаться по ssh ключу, или же нам надо вообще не дать ему зайти с пароля в систему, поэтомy
+sudo passwd -l Raymond
+sudo usermod -aG sudo Raymond
+sudo deluser John sudo
+groups Raymond
+groups John
+ssh Raymond@10.0.2.15
+cd ~
+touch document.txt
+chmod 644 document.txt
+su John
+cd ~
+vim zdarova.sh
+#переключаемся, так как мы запретили джону sudo
+su vboxuser
+sudo groupadd johngrou
+sudo usermod -aG johngroup John
+sudo usermod -aG johngroup Raymond
+sudo chgrp johngroup /home/John/zdarova.sh
+sudo chmod g+rx /home/John/zdarova.sh
+sudo chmod g+rx /home/John
+sudo chsh -s /bin/bash John
+sudo useradd -m -d /home/NewUser -g users -s /bin/sh NewUser
+sudo usermod -aG johngroup NewUser
+sudo passwd NewUser
+su NewUser
+/home/John/zdarova.sh
+su vboxuser
+cd ~
+touch scptest.txt
+scp -i /home/vboxuser/.ssh/id_ed25519 scptest.txt Raymond@10.0.2.15:/home/Raymond
