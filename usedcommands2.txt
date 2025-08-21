@@ -28,7 +28,7 @@ cd ~
 vim zdarova.sh
 #переключаемся, так как мы запретили джону sudo
 su vboxuser
-sudo groupadd johngrou
+sudo groupadd johngroup
 sudo usermod -aG johngroup John
 sudo usermod -aG johngroup Raymond
 sudo chgrp johngroup /home/John/zdarova.sh
